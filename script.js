@@ -318,3 +318,46 @@ function PaginationButton(page, items) {
 
 DisplayList(getProduct, productItemDiv, rows, current_page);
 SetUpPagination(getProduct, pagination_element, rows);
+
+// login - logout
+const login = document.getElementsByClassName("login")[0];
+const logout = document.getElementsByClassName("logout")[0];
+const loginBtn = document.querySelector(".loginBtn");
+const emailId = document.querySelector(".emailId");
+const password = document.querySelector(".password");
+
+loginBtn.addEventListener("click", () => {
+  // window.onload();
+  console.log(password.value);
+  let emailVal = emailId.value;
+  let passwordVal = password.value;
+
+  const user = {
+    email: emailVal,
+    password: passwordVal,
+  };
+
+  localStorage.setItem("user", JSON.stringify(user));
+  localStorage.setItem("isLoggedIn", true);
+
+  location.reload();
+});
+
+logout.addEventListener("click", () => {
+  localStorage.setItem("isLoggedIn", false);
+
+  location.reload();
+});
+
+// Check Is Login
+// login.style.display = "block";
+// logout.style.display = "block";
+let isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn"));
+console.log(isLoggedIn);
+if (isLoggedIn) {
+  login.style.display = "none";
+  logout.style.display = "block";
+} else {
+  login.style.display = "block";
+  logout.style.display = "none";
+}
